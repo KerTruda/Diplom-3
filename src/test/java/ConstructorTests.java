@@ -11,7 +11,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
-public class ConstructorTest {
+public class ConstructorTests {
     private WebDriver driver;
 
     @Before

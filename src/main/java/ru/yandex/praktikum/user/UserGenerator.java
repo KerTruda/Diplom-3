@@ -10,7 +10,7 @@ public class UserGenerator {
 
         return new User()
                 .setEmail(randomEmail())
-                .setPassword(randomString(10))
-                .setName(randomString(10));
+                .setPassword(randomString(6))
+                .setName(randomString(6));
     }
 }
