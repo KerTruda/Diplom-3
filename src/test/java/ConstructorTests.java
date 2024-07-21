@@ -4,19 +4,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.praktikum.pages.MainPage;
 
 import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
+import static ru.yandex.praktikum.utils.WebDriverCreator.createWebDriver;
 
 public class ConstructorTests {
     private WebDriver driver;
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        driver = createWebDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 

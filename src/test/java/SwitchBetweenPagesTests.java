@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.praktikum.models.User;
 import ru.yandex.praktikum.pages.MainPage;
 import ru.yandex.praktikum.user.UserClient;
@@ -16,6 +15,7 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static ru.yandex.praktikum.user.UserGenerator.getRandomUser;
+import static ru.yandex.praktikum.utils.WebDriverCreator.*;
 
 public class SwitchBetweenPagesTests {
     private WebDriver driver;
@@ -25,7 +25,7 @@ public class SwitchBetweenPagesTests {
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        driver = createWebDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         user = getRandomUser();
         userClient = new UserClient();
