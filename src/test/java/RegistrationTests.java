@@ -1,14 +1,18 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.praktikum.models.User;
 import ru.yandex.praktikum.pages.MainPage;
+import ru.yandex.praktikum.user.UserClient;
 
 import java.time.Duration;
 
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static ru.yandex.praktikum.user.UserGenerator.getRandomUser;
 import static ru.yandex.praktikum.utils.Utils.randomString;
@@ -17,12 +21,15 @@ import static ru.yandex.praktikum.utils.WebDriverCreator.createWebDriver;
 public class RegistrationTests {
     private WebDriver driver;
     private User user;
+    private UserClient userClient;
+    private String bearerToken;
 
     @Before
     public void setup() {
         driver = createWebDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         user = getRandomUser();
+        userClient = new UserClient();
     }
 
     @Test
@@ -62,5 +69,10 @@ public class RegistrationTests {
     @After
     public void tearDown() {
         driver.quit();
+        Response response = userClient.loginUser(user);
+        if (response.statusCode() == SC_OK){
+            bearerToken = response.path("accessToken");
+            assertEquals("User successfully removed", userClient.deleteUser(bearerToken).path("message"));
+        }
     }
 }
